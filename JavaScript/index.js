@@ -1,26 +1,31 @@
-document.querySelector("#search-form").addEventListener("submit", function (e) {
-  e.preventDefault();
-  let city = document.querySelector("#search-input").value;
-  searchCity(city);
-});
+function search(event) {
+  event.preventDefault();
+  let searchInputElement = document.querySelector("#search-input");
+  let city = searchInputElement.value;
+  let apiKey = 'fdf828f4de846385fac2a174f46c4889';
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
-function searchCity(city) {
-  let apiKey = "8742fb00593f7adfe00261eb3501404b";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
   axios.get(apiUrl).then(displayWeather);
 }
 
 function displayWeather(response) {
-  document.querySelector("#current-city").innerHTML = response.data.name;
-  document.querySelector("#temperature").innerHTML = Math.round(response.data.main.temp);
-  document.querySelector("#weather-description").innerHTML = response.data.weather[0].description;
-  document.querySelector("#humidity strong").innerHTML = response.data.main.humidity + "%";
-  document.querySelector("#wind strong").innerHTML = response.data.wind.speed + " km/h";
-  document.querySelector(".current-temperature-icon").innerHTML = getWeatherIcon(response.data.weather[0].icon);
-  document.querySelector("#current-date").innerHTML = formatDate(new Date());
+  let cityElement = document.querySelector("#current-city");
+  let temperatureElement = document.querySelector(".current-temperature-value");
+  let temperatureIconElement = document.querySelector(".current-temperature-icon");
+  let weatherDescriptionElement = document.querySelector("#weather-description");
+  let humidityElement = document.querySelector("#humidity");
+  let windElement = document.querySelector("#wind");
+
+  cityElement.innerHTML = response.data.name;
+  temperatureElement.innerHTML = Math.round(response.data.main.temp);
+  temperatureIconElement.innerHTML = getWeatherIcon(response.data.weather[0].icon);
+  weatherDescriptionElement.innerHTML = response.data.weather[0].description;
+  humidityElement.innerHTML = `Humidity: <strong>${response.data.main.humidity}%</strong>`;
+  windElement.innerHTML = `Wind: <strong>${response.data.wind.speed} km/h</strong>`;
 }
 
 function getWeatherIcon(iconCode) {
+  // Map OpenWeatherMap icon codes to corresponding emojis
   const iconMap = {
     "01d": "☀️",
     "01n": "🌕",
@@ -39,8 +44,9 @@ function getWeatherIcon(iconCode) {
     "13d": "❄️",
     "13n": "❄️",
     "50d": "🌫",
-    "50n": "🌫",
+    "50n": "🌫"
   };
+
   return iconMap[iconCode] || "❓";
 }
 
@@ -57,7 +63,24 @@ function formatDate(date) {
     hours = `0${hours}`;
   }
 
-  let days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  let days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday"
+  ];
+
   let formattedDay = days[day];
   return `${formattedDay} ${hours}:${minutes}`;
 }
+
+let searchForm = document.querySelector("#search-form");
+searchForm.addEventListener("submit", search);
+
+let currentDateElement = document.querySelector("#current-date");
+let currentDate = new Date();
+
+currentDateElement.innerHTML = formatDate(currentDate);
