@@ -1,43 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="src/index.css" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+  <link href="https://fonts.googleapis.com/css2?family=Maven+Pro:wght@400..900&amp;display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/index.css">
   <script src="https://cdn.jsdelivr.net/npm/axios@1.6.7/dist/axios.min.js"></script>
-  <title>Weather App</title>
+  <title>Chatterton Weather App</title>
 </head>
 <body>
   <div class="weather-app">
     <header>
       <form class="search-form" id="search-form">
-        <input type="search" placeholder="Enter a city..." required id="search-form-input" class="search-form-input" />
-        <input type="submit" value="Search" class="search-form-button" />
+        <input type="search" placeholder="Enter a city..." required="" id="search-form-input" class="search-form-input">
+        <input type="submit" value="Search" class="search-form-button">
       </form>
     </header>
     <main>
       <div class="weather-app-container">
         <div class="weather-app-data">
-          <h1 class="weather-app-city" id="city"></h1>
+          <h1 class="weather-app-city" id="city">Houston</h1>
           <p class="weather-app-details">
-            <span id="time"></span>, <span id="description"></span> 
-            <br />
-            Humidity: <strong id="humidity"></strong>, Wind: <strong id="wind-speed"></strong>
+            <span id="time">Sunday 16:28</span>, <span id="description">scattered clouds</span> 
+            <br>
+            Humidity: <strong id="humidity">64%</strong>, Wind: <strong id="wind-speed">18.41 mph</strong>
           </p>
         </div>
         <div class="weather-app-temperature-container">
-          <img src="" class="weather-app-icon" id="icon" />
+          <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/scattered-clouds-day.png" class="weather-app-icon" id="icon" alt="scattered clouds">
           <div class="weather-app-temperature-wrapper">
-            <span class="weather-app-temperature" id="temperature"></span>
+            <span class="weather-app-temperature" id="temperature">91</span>
             <span class="weather-app-unit">°F</span>
           </div>
         </div>
       </div>
-      <div class="weather-forecast" id="forecast"></div>
+      <div class="weather-forecast" id="forecast"><div class="weather-forecast-row">
+                <div class="weather-forecast-day">
+                    <div class="weather-forecast-date">Sun</div>
+                    <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png" alt="light rain" width="42">
+                    <div class="weather-forecast-temperature">
+                        <span class="weather-forecast-max">93°</span>
+                        <span class="weather-forecast-min">78°</span>
+                    </div>
+                </div>
+            
+                <div class="weather-forecast-day">
+                    <div class="weather-forecast-date">Mon</div>
+                    <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png" alt="light rain" width="42">
+                    <div class="weather-forecast-temperature">
+                        <span class="weather-forecast-max">97°</span>
+                        <span class="weather-forecast-min">78°</span>
+                    </div>
+                </div>
+            
+                <div class="weather-forecast-day">
+                    <div class="weather-forecast-date">Tue</div>
+                    <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/rain-day.png" alt="light rain" width="42">
+                    <div class="weather-forecast-temperature">
+                        <span class="weather-forecast-max">97°</span>
+                        <span class="weather-forecast-min">78°</span>
+                    </div>
+                </div>
+            
+                <div class="weather-forecast-day">
+                    <div class="weather-forecast-date">Wed</div>
+                    <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/broken-clouds-day.png" alt="broken clouds" width="42">
+                    <div class="weather-forecast-temperature">
+                        <span class="weather-forecast-max">91°</span>
+                        <span class="weather-forecast-min">77°</span>
+                    </div>
+                </div>
+            
+                <div class="weather-forecast-day">
+                    <div class="weather-forecast-date">Thu</div>
+                    <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/clear-sky-day.png" alt="sky is clear" width="42">
+                    <div class="weather-forecast-temperature">
+                        <span class="weather-forecast-max">97°</span>
+                        <span class="weather-forecast-min">79°</span>
+                    </div>
+                </div>
+            </div></div>
       <div class="weather-forecast-day">
         <div class="weather-forecast-date"></div>
         <div class="weather-forecast-temperature"></div>
@@ -51,6 +95,5 @@
       and hosted <a href="" target="_blank">on Netlify</a>
     </footer>
   </div>
-  <script src="src/index.js"></script>
 </body>
 </html>
