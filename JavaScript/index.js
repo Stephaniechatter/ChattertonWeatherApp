@@ -52,6 +52,10 @@ function getWeatherIcon(iconCode) {
   return iconMap[iconCode] || "❓";
 }
 
+function handleError(error) {
+  console.error('Error fetching weather data:', error);
+}
+
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
@@ -79,14 +83,9 @@ function formatDate(date) {
   return `${formattedDay} ${hours}:${minutes}`;
 }
 
-function handleError(error) {
-  console.error('Error fetching weather data:', error);
-}
-
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
 
 let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
-
 currentDateElement.innerHTML = formatDate(currentDate);
