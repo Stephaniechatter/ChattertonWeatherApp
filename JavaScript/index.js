@@ -1,3 +1,4 @@
+// Function to refresh weather data on the page
 function refreshWeather(response) {
   let temperatureElement = document.querySelector("#temperature");
   let cityElement = document.querySelector("#city");
@@ -7,44 +8,22 @@ function refreshWeather(response) {
   let timeElement = document.querySelector("#time");
   let iconElement = document.querySelector("#icon");
   
-  let temperature = response.data.temperature.current;
-  let date = new Date(response.data.time * 1000);
-  let iconUrl = response.data.condition.icon_url;
+  let temperature = response.data.main.temp;
+  let date = new Date(response.data.dt * 1000);
+  let iconCode = response.data.weather[0].icon;
+  let iconUrl = `http://openweathermap.org/img/wn/${iconCode}.png`;
   
-  cityElement.innerHTML = response.data.city;
+  cityElement.innerHTML = response.data.name;
   timeElement.innerHTML = formatDate(date);
-  descriptionElement.innerHTML = response.data.condition.description;
-  humidityElement.innerHTML = `${response.data.temperature.humidity}%`;
+  descriptionElement.innerHTML = response.data.weather[0].description;
+  humidityElement.innerHTML = `${response.data.main.humidity}%`;
   windSpeedElement.innerHTML = `${response.data.wind.speed} mph`;
   temperatureElement.innerHTML = Math.round(temperature);
   iconElement.setAttribute("src", iconUrl);
-  iconElement.setAttribute("alt", response.data.condition.description);
+  iconElement.setAttribute("alt", response.data.weather[0].description);
 }
 
-function displayForecast(response) {
-  let forecastElement = document.querySelector("#forecast");
-  let forecast = response.data.daily;
-  
-  let forecastHTML = `<div class="weather-forecast-row">`;
-  forecast.forEach(function(forecastDay, index) {
-      if (index < 5) {
-          let day = new Date(forecastDay.time * 1000);
-          forecastHTML += `
-              <div class="weather-forecast-day">
-                  <div class="weather-forecast-date">${formatDay(day)}</div>
-                  <img src="${forecastDay.condition.icon_url}" alt="${forecastDay.condition.description}" width="42" />
-                  <div class="weather-forecast-temperature">
-                      <span class="weather-forecast-max">${Math.round(forecastDay.temperature.maximum)}°</span>
-                      <span class="weather-forecast-min">${Math.round(forecastDay.temperature.minimum)}°</span>
-                  </div>
-              </div>
-          `;
-      }
-  });
-  forecastHTML += `</div>`;
-  forecastElement.innerHTML = forecastHTML;
-}
-
+// Function to format date
 function formatDate(date) {
   let minutes = date.getMinutes();
   let hours = date.getHours();
@@ -58,27 +37,23 @@ function formatDate(date) {
   return `${day} ${hours}:${minutes}`;
 }
 
-function formatDay(date) {
-  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
-  return days[date.getDay()];
-}
-
+// Function to search for a city and fetch its weather data
 function searchCity(city) {
-  let apiKey = "64od2000bca5188a9533t4ea4bf43c96";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${city}&key=${apiKey}&units=imperial`;
+  let apiKey = "8742fb00593f7adfe00261eb3501404b";
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(refreshWeather);
-
-  apiUrl = `https://api.shecodes.io/weather/v1/forecast?query=${city}&key=${apiKey}&units=imperial`;
-  axios.get(apiUrl).then(displayForecast);
 }
 
+// Function to handle form submission
 function handleSearchSubmit(event) {
   event.preventDefault();
-  let searchInput = document.querySelector("#search-form-input");
-  searchCity(searchInput.value);
+  let searchInput = document.querySelector("#search-form-input").value;
+  searchCity(searchInput);
 }
 
+// Add event listener to the search form
 let searchFormElement = document.querySelector("#search-form");
 searchFormElement.addEventListener("submit", handleSearchSubmit);
 
+// Show weather for Houston by default when the page loads
 searchCity("Houston");
