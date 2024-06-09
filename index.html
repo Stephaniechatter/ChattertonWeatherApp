@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,30 +15,28 @@
   <div class="weather-app">
     <header>
       <form class="search-form" id="search-form">
-        <input type="search" placeholder="Enter a city..." required id="search-form-input" class="search-form-input" />
-        <input type="submit" value="Search" class="search-form-button" />
+        <input type="search" placeholder="Enter a city..." required id="search-input" class="search-input" />
+        <input type="submit" value="Search" class="search-button" />
       </form>
     </header>
     <main>
       <div class="weather-app-container">
         <div class="weather-app-data">
-          <h1 class="weather-app-city" id="city"></h1>
+          <h1 class="weather-app-city" id="current-city"></h1>
           <p class="weather-app-details">
-            <span id="time"></span>, <span id="description"></span> 
+            <span id="current-date"></span>, <span id="weather-description"></span> 
             <br />
-            Humidity: <strong id="humidity"></strong>, Wind: <strong id="wind-speed"></strong>
+            Humidity: <strong id="humidity"></strong>, Wind: <strong id="wind"></strong>
           </p>
         </div>
         <div class="weather-app-temperature-container">
-          <img src="" class="weather-app-icon" id="icon" />
+          <span class="weather-app-icon" id="temperature-icon"></span>
           <div class="weather-app-temperature-wrapper">
-            <span class="weather-app-temperature" id="temperature"></span>
-            <span class="weather-app-unit">°F</span>
+            <span class="current-temperature-value" id="temperature"></span>
+            <span class="weather-app-unit">°C</span>
           </div>
         </div>
       </div>
-     
-    
     </main>
     <footer>
       This project was coded by
