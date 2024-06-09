@@ -84,3 +84,4 @@ let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 
 currentDateElement.innerHTML = formatDate(currentDate);
+
