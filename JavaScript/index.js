@@ -1,29 +1,22 @@
-function search(event) {
+document.querySelector("#search-form").addEventListener("submit", function(event) {
   event.preventDefault();
-  let searchInputElement = document.querySelector("#search-form-input");
-  let city = searchInputElement.value;
-  let apiKey = 'fdf828f4de846385fac2a174f46c4889';
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
+  let city = document.querySelector("#search-input").value;
+  searchCity(city);
+});
 
+function searchCity(city) {
+  let apiKey = 'your_api_key'; // Replace with your API key
+  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
   axios.get(apiUrl).then(displayWeather);
 }
 
 function displayWeather(response) {
-  let cityElement = document.querySelector("#city");
-  let temperatureElement = document.querySelector("#temperature");
-  let iconElement = document.querySelector("#icon");
-  let descriptionElement = document.querySelector("#description");
-  let humidityElement = document.querySelector("#humidity");
-  let windElement = document.querySelector("#wind-speed");
-  let timeElement = document.querySelector("#time");
-
-  cityElement.innerHTML = response.data.name;
-  temperatureElement.innerHTML = Math.round(response.data.main.temp);
-  iconElement.src = `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`;
-  descriptionElement.innerHTML = response.data.weather[0].description;
-  humidityElement.innerHTML = `${response.data.main.humidity}%`;
-  windElement.innerHTML = `${response.data.wind.speed} m/s`;
-  timeElement.innerHTML = formatDate(new Date(response.data.dt * 1000));
+  document.querySelector("#current-city").innerHTML = response.data.name;
+  document.querySelector("#weather-description").innerHTML = response.data.weather[0].description;
+  document.querySelector("#humidity strong").innerHTML = response.data.main.humidity + '%';
+  document.querySelector("#wind strong").innerHTML = response.data.wind.speed + ' km/h';
+  document.querySelector("#current-temperature-icon").innerHTML = '☀️'; // You can update this based on the weather condition
+  document.querySelector("#current-temperature-value").innerHTML = Math.round(response.data.main.temp);
 }
 
 function formatDate(date) {
@@ -40,9 +33,4 @@ function formatDate(date) {
   return `${day} ${hours}:${minutes}`;
 }
 
-let searchForm = document.querySelector("#search-form");
-searchForm.addEventListener("submit", search);
-
-let currentDateElement = document.querySelector("#time");
-let currentDate = new Date();
-currentDateElement.innerHTML = formatDate(currentDate);
+document.querySelector("#current-date").innerHTML = formatDate(new Date());
