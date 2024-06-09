@@ -2,10 +2,10 @@ function search(event) {
   event.preventDefault();
   let searchInputElement = document.querySelector("#search-input");
   let city = searchInputElement.value;
-  let apiKey = 'fdf828f4de846385fac2a174f46c4889';
+  let apiKey = '8742fb00593f7adfe00261eb3501404b'; // Replace with your API key
   let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=metric&appid=${apiKey}`;
 
-  axios.get(apiUrl).then(displayWeather);
+  axios.get(apiUrl).then(displayWeather).catch(handleError);
 }
 
 function displayWeather(response) {
@@ -77,6 +77,10 @@ function formatDate(date) {
   return `${formattedDay} ${hours}:${minutes}`;
 }
 
+function handleError(error) {
+  console.error('Error fetching weather data:', error);
+}
+
 let searchForm = document.querySelector("#search-form");
 searchForm.addEventListener("submit", search);
 
@@ -84,4 +88,3 @@ let currentDateElement = document.querySelector("#current-date");
 let currentDate = new Date();
 
 currentDateElement.innerHTML = formatDate(currentDate);
-
